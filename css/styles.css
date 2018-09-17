@@ -1,0 +1,21 @@
+body {
+    background-color: #232323;
+}
+
+h1 {
+    color:white;
+}
+
+#container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* this will set up our squares grid layout. */
+.square {
+    width: 30%;
+    background-color: blueviolet;
+    padding-bottom: 30%;
+    float: left;
+    margin: 1.66%;
+}

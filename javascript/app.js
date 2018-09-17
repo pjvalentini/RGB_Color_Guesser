@@ -1,14 +1,7 @@
 // Lets Start by giving our squares a dfferent color.
 
-// Create and array or random rgb colors.
-var colors = [
-    "rgb(255, 0, 0)", 
-    "rgb(0, 255, 0)", 
-    "rgb(0, 0, 255)",
-    "rgb(222, 34, 135)",
-    "rgb(44, 122, 5)",
-    "rgb(56, 244, 234)"
-];
+// Storing the genrateRandColor() in a var for use later on.
+var colors = genrateRandColors(6);
 
 // Select all squares
 var squares = document.querySelectorAll(".square");
@@ -30,6 +23,7 @@ for(var i = 0; i < squares.length; i++) {
     squares[i].addEventListener("click", function() {
         // grab color of clicked square
        var clickedColor = this.style.backgroundColor;
+       console.log(clickedColor, pickedColor);
         // compare color to pickedColor
        if(clickedColor === pickedColor) {
            answer.textContent = "Correct!"
@@ -61,4 +55,30 @@ function pickRandomColor() {
     return colors[randomizer];
 };
 
+// This function will allow us to use randomly generated colors.
+// We will not be dependent on hard coded colors now.
+function genrateRandColors(num) {
+    // make an array
+    var colorArr = [];
+    // add num random colors to array
+    for(var i = 0; i < num; i++) {
+       // get random color and push into colorArr 
+       colorArr.push(randomColor());
+    }
+    // return that array
+    return colorArr;
+}
+
+// This function will generate the random color
+function randomColor() {
+    // pick a three rgb colors from 0 to 255
+    // Red
+    var r = Math.floor(Math.random() * 256);
+    // Green
+    var g = Math.floor(Math.random() * 256);
+    // Blue
+    var b = Math.floor(Math.random() * 256);
+    // Make sure to add the spaces after the commas or else there will not be a match!
+    return "rgb(" + r + ", " + g + ", " + b + ")";
+}
 

@@ -2,7 +2,8 @@
 
 // Storing the genrateRandColor() in a var for use later on.
 var colors = genrateRandColors(6);
-
+// select the h1. 
+var h1 = document.querySelector("h1");
 // Select all squares
 var squares = document.querySelectorAll(".square");
 // Storing the pickRandomColor() in a var for use later on.
@@ -29,6 +30,8 @@ for(var i = 0; i < squares.length; i++) {
            answer.textContent = "Correct!"
            // call changeToCorrectColor(), pass in clickedColor
            changeToCorrectColor(clickedColor);
+           // changes to the background color of the h1 to the correct choice.
+           h1.style.backgroundColor = clickedColor;
        } else {
            this.style.backgroundColor = "#232323";
            answer.textContent = "Try Again!"

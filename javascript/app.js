@@ -33,10 +33,23 @@ for(var i = 0; i < squares.length; i++) {
         // compare color to pickedColor
        if(clickedColor === pickedColor) {
            answer.textContent = "Correct!"
+           // call changeToCorrectColor(), pass in clickedColor
+           changeToCorrectColor(clickedColor);
        } else {
            this.style.backgroundColor = "#232323";
            answer.textContent = "Try Again!"
        }
     });
 }
+
+// This function will make all the suqares change to color of the correct choice when selected.
+// It takes an argument "color"
+function changeToCorrectColor(color) {
+    // loop through all squares
+    for(var i = 0; i < colors.length; i++) {
+        // change color to match correct guess o the squares Array
+        squares[i].style.backgroundColor = color;
+    };  
+}
+
 

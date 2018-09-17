@@ -74,7 +74,7 @@ function genrateRandColors(num) {
 
 // This function will generate the random color
 function randomColor() {
-    // pick a three rgb colors from 0 to 255
+    // pick three rgb colors from 0 to 255
     // Red
     var r = Math.floor(Math.random() * 256);
     // Green

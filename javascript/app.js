@@ -16,6 +16,8 @@ var squares = document.querySelectorAll(".square");
 var pickedColor = colors[3];
 // select the span in the h1 to display the color to be guessed.
 var colorDisplay = document.getElementById("colorDisplay");
+// select answer id from the span inside the div.
+var answer = document.getElementById("answer");
 // set pickedColor to display in the DOM
 colorDisplay.textContent = pickedColor;
 
@@ -30,9 +32,10 @@ for(var i = 0; i < squares.length; i++) {
        var clickedColor = this.style.backgroundColor;
         // compare color to pickedColor
        if(clickedColor === pickedColor) {
-           alert("Correct");
+           answer.textContent = "Correct!"
        } else {
-           alert("Wrong");
+           this.style.backgroundColor = "#232323";
+           answer.textContent = "Try Again!"
        }
     });
 }

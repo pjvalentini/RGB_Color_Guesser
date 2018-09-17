@@ -12,8 +12,8 @@ var colors = [
 
 // Select all squares
 var squares = document.querySelectorAll(".square");
-// For now we hard code the correct color for testing.
-var pickedColor = colors[3];
+// Storing the pickRandomColor() in a var for use later on.
+var pickedColor = pickRandomColor();
 // select the span in the h1 to display the color to be guessed.
 var colorDisplay = document.getElementById("colorDisplay");
 // select answer id from the span inside the div.
@@ -40,16 +40,25 @@ for(var i = 0; i < squares.length; i++) {
            answer.textContent = "Try Again!"
        }
     });
-}
+};
 
 // This function will make all the suqares change to color of the correct choice when selected.
 // It takes an argument "color"
 function changeToCorrectColor(color) {
     // loop through all squares
     for(var i = 0; i < colors.length; i++) {
-        // change color to match correct guess o the squares Array
+        // change color to match correct guess to the squares Array
         squares[i].style.backgroundColor = color;
     };  
-}
+};
+
+// This function will allow us to pick a random color as the correct choice
+// So that its not hard coded and more flexible.
+function pickRandomColor() {
+    // This picks one of the colors from the array colors
+    var randomizer = Math.floor(Math.random() * colors.length);
+    // This returns that random color.
+    return colors[randomizer];
+};
 
 

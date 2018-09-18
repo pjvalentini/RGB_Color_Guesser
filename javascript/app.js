@@ -1,5 +1,5 @@
-// Lets Start by giving our squares a dfferent color.
-
+// set the number squares depending on game mode.
+var numOfSqaures = 6;
 // Storing the genrateRandColor() in a var for use later on.
 var colors = genrateRandColors(6);
 // select the h1. 
@@ -14,6 +14,10 @@ var colorDisplay = document.getElementById("colorDisplay");
 var answer = document.getElementById("answer");
 // select the reset button (New Colors)
 var resetButton = document.getElementById("reset");
+// select easy and hard buttons
+var easyBtn = document.getElementById("easyBtn");
+var hardBtn = document.getElementById("hardBtn");
+
 
 // add an event on the reset button
 resetButton.addEventListener("click", function() {
@@ -30,6 +34,49 @@ resetButton.addEventListener("click", function() {
     // change color of h1 background back to #232323 after reset.
     h1.style.backgroundColor = "#232323";
 });
+
+// add events to easy and hard button
+easyBtn.addEventListener("click", function() {
+    // add class selcted to easyBtn
+    hardBtn.classList.remove("selected");
+    easyBtn.classList.add("selected");
+    // generate new colors
+    colors = genrateRandColors(3);
+    // generate a new picked color
+    pickedColor = pickRandomColor();
+    // change the display to show new picked color
+    colorDisplay.textContent = pickedColor;
+    // hide the bottom 3 squares for easy mode.
+    // use a for loop to select colors for top three sq
+    // hide the bottom three.
+    for(var i = 0; i < squares.length; i++) {
+        if(colors[i]) {
+            // only top 3 squares change
+            squares[i].style.backgroundColor = colors[i];   
+        } else {
+            // hides bottom 3 squares
+            squares[i].style.display = "none";
+        }
+    }
+});
+
+hardBtn.addEventListener("click", function () {
+    easyBtn.classList.remove("selected");
+    hardBtn.classList.add("selected");
+    colors = genrateRandColors(6);
+    // generate a new picked color
+    pickedColor = pickRandomColor();
+    // change the display to show new picked color
+    colorDisplay.textContent = pickedColor;
+    // hide the bottom 3 squares for easy mode.
+    // use a for loop to select colors for top three sq
+    // hide the bottom three.
+    for (var i = 0; i < squares.length; i++) {
+            squares[i].style.backgroundColor = colors[i];
+            squares[i].style.display = "block";  
+    }
+});
+
 
 // set pickedColor to display in the DOM
 colorDisplay.textContent = pickedColor;

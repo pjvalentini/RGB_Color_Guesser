@@ -21,6 +21,10 @@ h1 {
     text-align: center;
 }
 
+.selected {
+    background: blue;
+}
+
 /* this will set up our squares grid layout. */
 .square {
     width: 30%;

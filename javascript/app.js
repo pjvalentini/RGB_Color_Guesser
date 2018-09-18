@@ -31,8 +31,8 @@ resetButton.addEventListener("click", function() {
     for(var i = 0; i < squares.length; i++) {
         squares[i].style.backgroundColor = colors[i];
     }
-    // change color of h1 background back to #232323 after reset.
-    h1.style.backgroundColor = "#232323";
+    // change color of h1 background back to steelblue after reset.
+    h1.style.backgroundColor = "steelblue";
 });
 
 // add events to easy and hard button
@@ -40,6 +40,8 @@ easyBtn.addEventListener("click", function() {
     // add class selcted to easyBtn
     hardBtn.classList.remove("selected");
     easyBtn.classList.add("selected");
+    // changes background color to steelblue when you toogle game modes
+    h1.style.backgroundColor = "steelblue";
     // set the amt of squares to 3 for easy mode
     numOfSquares = 3;
     // generate new colors
@@ -65,6 +67,8 @@ easyBtn.addEventListener("click", function() {
 hardBtn.addEventListener("click", function () {
     easyBtn.classList.remove("selected");
     hardBtn.classList.add("selected");
+    // changes background color to steelblue when you toogle game modes
+    h1.style.backgroundColor = "steelblue";
    // set the amt of squares to 6 for hard mode
     numOfSquares = 6;
     colors = genrateRandColors(numOfSquares);

@@ -1,7 +1,7 @@
 // set the number squares depending on game mode.
-var numOfSqaures = 6;
+var numOfSquares = 6;
 // Storing the genrateRandColor() in a var for use later on.
-var colors = genrateRandColors(6);
+var colors = genrateRandColors(numOfSquares);
 // select the h1. 
 var h1 = document.querySelector("h1");
 // Select all squares
@@ -22,7 +22,7 @@ var hardBtn = document.getElementById("hardBtn");
 // add an event on the reset button
 resetButton.addEventListener("click", function() {
     // genrate all new colors
-    colors = genrateRandColors(6);
+    colors = genrateRandColors(numOfSquares);
     // pick new rand color from array
     pickedColor = pickRandomColor();
     // change color display to match picked color.
@@ -40,8 +40,10 @@ easyBtn.addEventListener("click", function() {
     // add class selcted to easyBtn
     hardBtn.classList.remove("selected");
     easyBtn.classList.add("selected");
+    // set the amt of squares to 3 for easy mode
+    numOfSquares = 3;
     // generate new colors
-    colors = genrateRandColors(3);
+    colors = genrateRandColors(numOfSquares);
     // generate a new picked color
     pickedColor = pickRandomColor();
     // change the display to show new picked color
@@ -63,7 +65,9 @@ easyBtn.addEventListener("click", function() {
 hardBtn.addEventListener("click", function () {
     easyBtn.classList.remove("selected");
     hardBtn.classList.add("selected");
-    colors = genrateRandColors(6);
+   // set the amt of squares to 6 for hard mode
+    numOfSquares = 6;
+    colors = genrateRandColors(numOfSquares);
     // generate a new picked color
     pickedColor = pickRandomColor();
     // change the display to show new picked color

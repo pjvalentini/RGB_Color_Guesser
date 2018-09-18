@@ -1,13 +1,17 @@
 // set the number squares depending on game mode.
 var numOfSquares = 6;
 // Storing the genrateRandColor() in a var for use later on.
-var colors = genrateRandColors(numOfSquares);
+// var colors = genrateRandColors(numOfSquares);
+// we can set colors as an empty array now, since reset() does that already;
+var colors = [];
+// Storing the pickRandomColor() in a var for use later on.
+// var pickedColor = pickRandomColor();
+// we can set pickedColor as undeclared, since reset() declares that already;
+var pickedColor;
 // select the h1. 
 var h1 = document.querySelector("h1");
 // Select all squares
 var squares = document.querySelectorAll(".square");
-// Storing the pickRandomColor() in a var for use later on.
-var pickedColor = pickRandomColor();
 // select the span in the h1 to display the color to be guessed.
 var colorDisplay = document.getElementById("colorDisplay");
 // select answer id from the span inside the div.
@@ -15,114 +19,158 @@ var answer = document.getElementById("answer");
 // select the reset button (New Colors)
 var resetButton = document.getElementById("reset");
 // select easy and hard buttons
-var easyBtn = document.getElementById("easyBtn");
-var hardBtn = document.getElementById("hardBtn");
+// var easyBtn = document.getElementById("easyBtn");
+// var hardBtn = document.getElementById("hardBtn");
+// REFACTORING!
+// by setting the same class on the buttons we can have combined functionality
+// and clean up this code.
+var modeButtons = document.querySelectorAll(".mode");
+
+// init() runs the whole program on page load.
+init();
+
+function init() {
+   // call setUpModeButtons();
+   setUpModeButtons();
+   // call setUpSquares()
+   setUpSquares();
+    // we want to reset the screen after a round of the game
+    reset();
+};
+
+function setUpModeButtons() {
+     // modeButtons eventListener.
+     // loop through the mode buttons
+     for (var i = 0; i < modeButtons.length; i++) {
+         modeButtons[i].addEventListener("click", function () {
+             // remove the selected class on each index of modeButton;
+             modeButtons[0].classList.remove("selected");
+             modeButtons[1].classList.remove("selected");
+             // we want to add the selected class for the buttons when we click.
+             this.classList.add("selected");
+             // you can use a ternary operator here
+             this.textContent === "Easy" ? numOfSquares = 3 : numOfSquares = 6;
+             reset();
+         });
+     };
+}
+
+function setUpSquares() {
+     // loop through all squares and set colors on the them from the array
+     for (var i = 0; i < squares.length; i++) {
+
+         // add click listeners to squares
+         squares[i].addEventListener("click", function () {
+             // grab color of clicked square
+             var clickedColor = this.style.backgroundColor;
+             console.log(clickedColor, pickedColor);
+             // compare color to pickedColor
+             if (clickedColor === pickedColor) {
+                 answer.textContent = "Correct!";
+                 // changes the text of the button after game ends.
+                 resetButton.textContent = "Play Again?";
+                 // call changeToCorrectColor(), pass in clickedColor
+                 changeToCorrectColor(clickedColor);
+                 // changes to the background color of the h1 to the correct choice.
+                 h1.style.backgroundColor = clickedColor;
+             } else {
+                 this.style.backgroundColor = "#232323";
+                 answer.textContent = "Try Again!"
+             }
+         });
+     };
+}
 
 
-// add an event on the reset button
-resetButton.addEventListener("click", function() {
-    // genrate all new colors
+function reset() {
     colors = genrateRandColors(numOfSquares);
     // pick new random color from array
     pickedColor = pickRandomColor();
     // change color display to match picked color.
     colorDisplay.textContent = pickedColor;
     // changes the text back to new colors when toggling
-    this.textContent = "New Colors";
+    resetButton.textContent = "New Colors";
     // clears the answer span when the game resets.
     answer.textContent = "";
     // change colors of squares on page
-    for(var i = 0; i < squares.length; i++) {
-        squares[i].style.backgroundColor = colors[i];
-    }
+    for (var i = 0; i < squares.length; i++) {
+        // we need to hide three squares for easy mode
+        if(colors[i]) {
+            // this brings the 3 bottom squares back for hard mode
+            squares[i].style.display = "block";
+            squares[i].style.backgroundColor = colors[i];
+        } else {
+            // this will hde the bottom 3 squares in easy mode
+            squares[i].style.display = "none";
+        };
+    };
     // change color of h1 background back to steelblue after reset.
     h1.style.backgroundColor = "steelblue";
+}
+
+// add an event on the reset button
+resetButton.addEventListener("click", function() {
+    // all we need to do here is call the rest function!
+    reset();
 });
+
+// REDUNDANT CODE WAS HERE -- REFACTORED IT ABOVE
 
 // add events to easy and hard button
-easyBtn.addEventListener("click", function() {
-    // add class selcted to easyBtn
-    hardBtn.classList.remove("selected");
-    easyBtn.classList.add("selected");
-    // changes background color to steelblue when you toogle game modes
-    h1.style.backgroundColor = "steelblue";
-    // changes the text back to new colors when toggling
-    resetButton.textContent = "New Colors";
-    // set the amt of squares to 3 for easy mode
-    numOfSquares = 3;
-    // generate new colors
-    colors = genrateRandColors(numOfSquares);
-    // generate a new picked color
-    pickedColor = pickRandomColor();
-    // change the display to show new picked color
-    colorDisplay.textContent = pickedColor;
-    // hide the bottom 3 squares for easy mode.
-    // use a for loop to select colors for top three sq
-    // hide the bottom three.
-    for(var i = 0; i < squares.length; i++) {
-        if(colors[i]) {
-            // only top 3 squares change
-            squares[i].style.backgroundColor = colors[i];   
-        } else {
-            // hides bottom 3 squares
-            squares[i].style.display = "none";
-        }
-    }
-});
+// easyBtn.addEventListener("click", function() {
+//     // add class selcted to easyBtn
+//     hardBtn.classList.remove("selected");
+//     easyBtn.classList.add("selected");
+//     // changes background color to steelblue when you toogle game modes
+//     h1.style.backgroundColor = "steelblue";
+//     // changes the text back to new colors when toggling
+//     resetButton.textContent = "New Colors";
+//     // set the amt of squares to 3 for easy mode
+//     numOfSquares = 3;
+//     // generate new colors
+//     colors = genrateRandColors(numOfSquares);
+//     // generate a new picked color
+//     pickedColor = pickRandomColor();
+//     // change the display to show new picked color
+//     colorDisplay.textContent = pickedColor;
+//     // hide the bottom 3 squares for easy mode.
+//     // use a for loop to select colors for top three sq
+//     // hide the bottom three.
+//     for(var i = 0; i < squares.length; i++) {
+//         if(colors[i]) {
+//             // only top 3 squares change
+//             squares[i].style.backgroundColor = colors[i];   
+//         } else {
+//             // hides bottom 3 squares
+//             squares[i].style.display = "none";
+//         }
+//     }
+// });
 
-hardBtn.addEventListener("click", function () {
-    easyBtn.classList.remove("selected");
-    hardBtn.classList.add("selected");
-    // changes background color to steelblue when you toogle game modes
-    h1.style.backgroundColor = "steelblue";
-    // changes the text back to new colors when toggling
-    resetButton.textContent = "New Colors";
-   // set the amt of squares to 6 for hard mode
-    numOfSquares = 6;
-    colors = genrateRandColors(numOfSquares);
-    // generate a new picked color
-    pickedColor = pickRandomColor();
-    // change the display to show new picked color
-    colorDisplay.textContent = pickedColor;
+// hardBtn.addEventListener("click", function () {
+//     easyBtn.classList.remove("selected");
+//     hardBtn.classList.add("selected");
+//     // changes background color to steelblue when you toogle game modes
+//     h1.style.backgroundColor = "steelblue";
+//     // changes the text back to new colors when toggling
+//     resetButton.textContent = "New Colors";
+//    // set the amt of squares to 6 for hard mode
+//     numOfSquares = 6;
+//     colors = genrateRandColors(numOfSquares);
+//     // generate a new picked color
+//     pickedColor = pickRandomColor();
+//     // change the display to show new picked color
+//     colorDisplay.textContent = pickedColor;
 
-    // hide the bottom 3 squares for easy mode.
-    // use a for loop to select colors for top three sq
-    // hide the bottom three.
-    for (var i = 0; i < squares.length; i++) {
-            squares[i].style.backgroundColor = colors[i];
-            squares[i].style.display = "block";  
-    }
-});
+//     // hide the bottom 3 squares for easy mode.
+//     // use a for loop to select colors for top three sq
+//     // hide the bottom three.
+//     for (var i = 0; i < squares.length; i++) {
+//             squares[i].style.backgroundColor = colors[i];
+//             squares[i].style.display = "block";  
+//     }
+// });
 
-
-// set pickedColor to display in the DOM
-colorDisplay.textContent = pickedColor;
-
-// loop through all squares and set colors on the them from the array
-for(var i = 0; i < squares.length; i++) {
-    // add initial colors to squares
-    squares[i].style.backgroundColor = colors[i];
-
-    // add click listeners to squares
-    squares[i].addEventListener("click", function() {
-        // grab color of clicked square
-       var clickedColor = this.style.backgroundColor;
-       console.log(clickedColor, pickedColor);
-        // compare color to pickedColor
-       if(clickedColor === pickedColor) {
-           answer.textContent = "Correct!";
-           // changes the text of the button after game ends.
-           resetButton.textContent = "Play Again?";
-           // call changeToCorrectColor(), pass in clickedColor
-           changeToCorrectColor(clickedColor);
-           // changes to the background color of the h1 to the correct choice.
-           h1.style.backgroundColor = clickedColor;
-       } else {
-           this.style.backgroundColor = "#232323";
-           answer.textContent = "Try Again!"
-       }
-    });
-};
 
 // This function will make all the suqares change to color of the correct choice when selected.
 // It takes an argument "color"

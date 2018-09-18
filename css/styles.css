@@ -6,13 +6,19 @@ h1 {
     color:white;
 }
 
-#answer {
-    color:white;
-}
-
-#container {
+.container {
     max-width: 600px;
     margin: 0 auto;
+}
+
+.answer {
+    color: blue;
+}
+
+.settings {
+    background-color: white;
+    height: 30px;
+    text-align: center;
 }
 
 /* this will set up our squares grid layout. */

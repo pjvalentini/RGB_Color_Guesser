@@ -12,6 +12,25 @@ var pickedColor = pickRandomColor();
 var colorDisplay = document.getElementById("colorDisplay");
 // select answer id from the span inside the div.
 var answer = document.getElementById("answer");
+// select the reset button (New Colors)
+var resetButton = document.getElementById("reset");
+
+// add an event on the reset button
+resetButton.addEventListener("click", function() {
+    // genrate all new colors
+    colors = genrateRandColors(6);
+    // pick new rand color from array
+    pickedColor = pickRandomColor();
+    // change color display to match picked color.
+    colorDisplay.textContent = pickedColor;
+    // change colors of squares on page
+    for(var i = 0; i < squares.length; i++) {
+        squares[i].style.backgroundColor = colors[i];
+    }
+    // change color of h1 background back to #232323 after reset.
+    h1.style.backgroundColor = "#232323";
+});
+
 // set pickedColor to display in the DOM
 colorDisplay.textContent = pickedColor;
 
@@ -27,7 +46,9 @@ for(var i = 0; i < squares.length; i++) {
        console.log(clickedColor, pickedColor);
         // compare color to pickedColor
        if(clickedColor === pickedColor) {
-           answer.textContent = "Correct!"
+           answer.textContent = "Correct!";
+           // changes the text of the button after game ends.
+           resetButton.textContent = "Play Again?";
            // call changeToCorrectColor(), pass in clickedColor
            changeToCorrectColor(clickedColor);
            // changes to the background color of the h1 to the correct choice.

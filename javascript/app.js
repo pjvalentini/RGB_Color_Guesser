@@ -27,6 +27,10 @@ resetButton.addEventListener("click", function() {
     pickedColor = pickRandomColor();
     // change color display to match picked color.
     colorDisplay.textContent = pickedColor;
+    // changes the text back to new colors when toggling
+    this.textContent = "New Colors";
+    // clears the answer span when the game resets.
+    answer.textContent = "";
     // change colors of squares on page
     for(var i = 0; i < squares.length; i++) {
         squares[i].style.backgroundColor = colors[i];
@@ -80,6 +84,7 @@ hardBtn.addEventListener("click", function () {
     pickedColor = pickRandomColor();
     // change the display to show new picked color
     colorDisplay.textContent = pickedColor;
+
     // hide the bottom 3 squares for easy mode.
     // use a for loop to select colors for top three sq
     // hide the bottom three.
@@ -154,7 +159,7 @@ function genrateRandColors(num) {
 
 // This function will generate the random color
 function randomColor() {
-    // pick three rgb colors from 0 to 255
+    // pick three rgb colors from 0 to 255 so (256 will figure 0 as a num)
     // Red
     var r = Math.floor(Math.random() * 256);
     // Green

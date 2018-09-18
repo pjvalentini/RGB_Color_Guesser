@@ -23,7 +23,7 @@ var hardBtn = document.getElementById("hardBtn");
 resetButton.addEventListener("click", function() {
     // genrate all new colors
     colors = genrateRandColors(numOfSquares);
-    // pick new rand color from array
+    // pick new random color from array
     pickedColor = pickRandomColor();
     // change color display to match picked color.
     colorDisplay.textContent = pickedColor;
@@ -42,6 +42,8 @@ easyBtn.addEventListener("click", function() {
     easyBtn.classList.add("selected");
     // changes background color to steelblue when you toogle game modes
     h1.style.backgroundColor = "steelblue";
+    // changes the text back to new colors when toggling
+    resetButton.textContent = "New Colors";
     // set the amt of squares to 3 for easy mode
     numOfSquares = 3;
     // generate new colors
@@ -69,6 +71,8 @@ hardBtn.addEventListener("click", function () {
     hardBtn.classList.add("selected");
     // changes background color to steelblue when you toogle game modes
     h1.style.backgroundColor = "steelblue";
+    // changes the text back to new colors when toggling
+    resetButton.textContent = "New Colors";
    // set the amt of squares to 6 for hard mode
     numOfSquares = 6;
     colors = genrateRandColors(numOfSquares);

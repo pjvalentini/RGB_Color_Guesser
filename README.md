@@ -5,7 +5,7 @@ RGB Color Guesser
 
 ## Deployment
 
-Heroku Link:
+[Heroku Link:](https://rgbcolorguess.herokuapp.com/)
 
 ## Built With
 
